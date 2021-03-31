@@ -1,0 +1,95 @@
+<app-schedule-base-step [rgStep]="rgStep">
+  <div class="card-header-operation">
+    <button mat-button [matMenuTriggerFor]="menu">菜单</button>
+  </div>
+  <div class="card-content">
+    <div>
+      基础配置
+
+      <mat-form-field appearance="fill">
+        <mat-label>类型</mat-label>
+        <mat-select
+          [(ngModel)]="rgStep.action"
+          (ngModelChange)="actionChange($event)"
+        >
+          <mat-option
+            [value]="item.value"
+            *ngFor="let item of flowMethodList"
+            >{{ item.label }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    类型配置
+    <div *ngIf="rgStep.action | isScheduleFlowLoopStep">
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>循环条件</mat-label>
+        <input matInput />
+      </mat-form-field> -->
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>终止条件</mat-label>
+        <input matInput />
+      </mat-form-field> -->
+      <div style="display: flex;">
+        <div style="flex: 1 1 0;">
+          <label for="">循环条件</label>
+          <app-ts-codeblock [(ngModel)]="rgStep.loopStart"></app-ts-codeblock>
+        </div>
+        <div style="flex: 1 1 0;">
+          <label for="">终止条件</label>
+          <app-ts-codeblock [(ngModel)]="rgStep.loopEnd"></app-ts-codeblock>
+        </div>
+      </div>
+
+      <app-schedule-block-step
+        [rgStep]="rgStep.loopBlock"
+      ></app-schedule-block-step>
+    </div>
+    <div *ngIf="rgStep.action | isScheduleFlowIfStep">
+      <div style="display: flex; flex-wrap: wrap">
+        <div *ngFor="let item of rgStep.conditionList" class="condition-item">
+          <div>
+            <label for="">条件</label>
+            <app-ts-codeblock [(ngModel)]="item.condition"></app-ts-codeblock>
+          </div>
+
+          <app-schedule-block-step
+            [rgStep]="item.block"
+          ></app-schedule-block-step>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="rgStep.action | isScheduleFlowSwitchStep"
+      style="display: flex; flex-wrap: wrap"
+    >
+      <div>
+        <label for="">表达式</label>
+        <app-ts-codeblock
+          [(ngModel)]="rgStep.switchExpression"
+        ></app-ts-codeblock>
+      </div>
+      <div *ngFor="let item of rgStep.switchSteps" class="condition-item">
+        <mat-form-field appearance="fill">
+          <mat-label>case</mat-label>
+          <input matInput [(ngModel)]="item.case" />
+        </mat-form-field>
+
+        <app-schedule-block-step
+          [rgStep]="item.block"
+        ></app-schedule-block-step>
+      </div>
+    </div>
+  </div>
+</app-schedule-base-step>
+
+<mat-menu #menu="matMenu">
+  <button
+    mat-menu-item
+    color="primary"
+    (click)="addStep(rgStep.action)"
+    *ngIf="rgStep.action && !(rgStep.action | isScheduleFlowLoopStep)"
+  >
+    增加
+  </button>
+</mat-menu>

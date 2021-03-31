@@ -1,0 +1,49 @@
+<app-schedule-base-step [rgStep]="rgStep">
+  <div class="card-content">
+    <mat-form-field appearance="fill">
+      <mat-label>操作</mat-label>
+
+      <mat-select
+        [(ngModel)]="rgStep.action"
+        (ngModelChange)="actionChange($event)"
+      >
+        <mat-option
+          [value]="item.value"
+          *ngFor="let item of scheduleGlobalActionList"
+          >{{ item.label }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <ng-container *ngIf="rgStep.action | isScheduleGlobalInitEngineStep">
+      <mat-form-field appearance="fill">
+        <mat-label>引擎类型</mat-label>
+        <mat-select [(ngModel)]="rgStep.engine">
+          <mat-option
+            [value]="item.value"
+            *ngFor="let item of engineTypeOptions"
+            >{{ item.label }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <mat-form-field style="width: 500px;">
+      <mat-label>参数</mat-label>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+          *ngFor="let item of rgStep.inputVariableList; let i = index"
+          (removed)="removeVariable(i)"
+        >
+          {{ item }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          [matChipInputFor]="chipList"
+          (matChipInputTokenEnd)="addVariable($event)"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+</app-schedule-base-step>

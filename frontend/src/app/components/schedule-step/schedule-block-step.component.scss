@@ -1,0 +1,7 @@
+.card-content {
+  display: flex;
+  flex-direction: column;
+  & > * {
+    margin: 4px 0;
+  }
+}

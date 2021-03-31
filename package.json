@@ -1,0 +1,22 @@
+{
+  "name": "robot-guard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wszgrcy/robot-guard.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wszgrcy/robot-guard/issues"
+  },
+  "homepage": "https://github.com/wszgrcy/robot-guard#readme",
+  "dependencies": {
+  
+  }
+}

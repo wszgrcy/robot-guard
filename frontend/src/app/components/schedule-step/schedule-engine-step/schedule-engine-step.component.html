@@ -1,0 +1,71 @@
+<app-schedule-base-step [rgStep]="rgStep">
+  <div class="card-content">
+    <mat-form-field appearance="fill">
+      <mat-label>变量名</mat-label>
+      <input
+        matInput
+        [(ngModel)]="rgStep.variableName"
+        (ngModelChange)="nameChange($event)"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>引擎名</mat-label>
+      <mat-select
+        [(ngModel)]="rgStep.instance"
+        name="instance"
+        (ngModelChange)="instanceChange($event)"
+        required
+      >
+        <mat-option
+          *ngFor="let item of engineNameList$ | async"
+          [value]="item.inputVariableList[0]"
+        >
+          {{ item.inputVariableList[0] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>引擎类型</mat-label>
+      <mat-select [(ngModel)]="rgStep.engine" disabled>
+        <mat-option
+          [value]="item.value"
+          *ngFor="let item of engineTypeOptions"
+          >{{ item.label }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>引擎操作</mat-label>
+      <mat-select [(ngModel)]="rgStep.action">
+        <mat-option
+          [value]="item.value"
+          *ngFor="let item of rgStep.engine | engineOption"
+          >{{ item.label }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>传入变量</mat-label>
+      <input matInput [(ngModel)]="rgStep.inputVariableList" />
+    </mat-form-field> -->
+    <mat-form-field style="width: 500px">
+      <mat-label>传入变量</mat-label>
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let item of rgStep.inputVariableList; let i = index"
+          (removed)="removeVariable(i)"
+        >
+          {{ item }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          [matChipInputFor]="chipList"
+          (matChipInputTokenEnd)="addVariable($event)"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+</app-schedule-base-step>
