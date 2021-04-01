@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import {
   engineTypeOptions,
@@ -9,6 +13,7 @@ import {
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CyiaStoreService } from 'cyia-ngx-common/store';
 import { EngineNameStore } from 'src/app/store';
+import { ScheduleStepDelete } from '@rg-interface';
 
 @Component({
   selector: 'app-schedule-global-step',
@@ -17,13 +22,23 @@ import { EngineNameStore } from 'src/app/store';
 })
 export class ScheduleGlobalStepComponent implements OnInit {
   @Input() rgStep!: ScheduleGlobalStepShared;
+  @Input() rgParentBlock!: ScheduleStepDelete;
   scheduleGlobalActionList = scheduleGlobalActionList;
   engineTypeOptions = engineTypeOptions;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(private storeService: CyiaStoreService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (
+      this.rgStep.action === ScheduleGlobalAction.initEngine &&
+      this.rgStep.inputVariableList.length === 1
+    ) {
+      this.storeService
+        .getStore(EngineNameStore)
+        .addVariable({ key: this.rgStep });
+    }
+  }
   actionChange(action: ScheduleGlobalStepShared['action']) {
     switch (action) {
       case ScheduleGlobalAction.initEngine:
@@ -62,5 +77,8 @@ export class ScheduleGlobalStepComponent implements OnInit {
     this.storeService
       .getStore(EngineNameStore)
       .removeVariable({ key: this.rgStep });
+  }
+  deleteSelf() {
+    this.rgParentBlock.deleteChild(this.rgStep);
   }
 }

@@ -5,7 +5,10 @@
     "jsx": "preserve",
     "strictFunctionTypes": true,
     "sourceMap": true,
-    "lib": ["DOM", "ESNext"]
+    "lib": ["DOM", "ESNext"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

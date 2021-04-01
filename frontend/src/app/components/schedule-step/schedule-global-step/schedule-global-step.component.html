@@ -1,4 +1,9 @@
 <app-schedule-base-step [rgStep]="rgStep">
+  <div class="card-header-operation">
+
+    <button mat-raised-button color="warn" *ngIf="rgParentBlock" (click)="deleteSelf()">删除</button>
+
+  </div>
   <div class="card-content">
     <mat-form-field appearance="fill">
       <mat-label>操作</mat-label>

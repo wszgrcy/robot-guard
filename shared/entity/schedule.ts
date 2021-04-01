@@ -9,7 +9,6 @@ export abstract class BaseScheduleStepShared {
       this.name = `默认步骤-${BaseScheduleStepShared.index++}`;
     }
   }
-  abstract toRequestFormat(): any;
 }
 /** 日程 */
 export class ScheduleSharedEntity {
@@ -27,28 +26,11 @@ export class ScheduleFlowStepShared extends BaseScheduleStepShared {
   type = ScheduleStep.flow;
   action!: "if" | "loop" | "switch";
   conditionList: { condition?: string; block: ScheduleBlockStepShared }[] = [];
-  loopBlock!: ScheduleBlockStepShared;
+  loopBlock!: ScheduleBlockStepShared|undefined;
   loopStart!: string;
   loopEnd!: string;
   switchSteps!: { case?: string; block: ScheduleBlockStepShared }[];
   switchExpression!: string;
-  toRequestFormat(): Record<string, any> {
-    return {
-      name: this.name,
-      type: this.type,
-      action: this.action,
-      conditionList:
-        this.action === "if"
-          ? this.conditionList.map((item) => ({ condition: item.condition, block: item.block.toRequestFormat() }))
-          : undefined,
-      switchSteps:
-        this.action === "switch"
-          ? this.switchSteps.map((item) => ({ condition: item.case, block: item.block.toRequestFormat() }))
-          : undefined,
-      loopBlock: this.action === "loop" ? this.loopBlock.toRequestFormat() : undefined,
-      switchExpression: this.action === "switch" ? this.switchExpression : undefined,
-    };
-  }
 }
 export class ScheduleEngineStepShared<T> extends BaseScheduleStepShared {
   type = ScheduleStep.engine;
@@ -59,17 +41,6 @@ export class ScheduleEngineStepShared<T> extends BaseScheduleStepShared {
   action!: T;
   variableName!: string;
   inputVariableList: any[] = [];
-  toRequestFormat(): Record<string, any> {
-    return {
-      name: this.name,
-      type: this.type,
-      engine: this.engine,
-      instance: this.instance,
-      action: this.action,
-      variableName: this.variableName,
-      inputVariable: this.inputVariableList,
-    };
-  }
 }
 /**
  * 运行其他日程,初始化引擎,执行脚本(未来)?等
@@ -80,26 +51,11 @@ export class ScheduleGlobalStepShared extends BaseScheduleStepShared {
   inputVariableList: any[] = [];
   engine!: EngineType;
 
-  toRequestFormat(): Record<string, any> {
-    return {
-      name: this.name,
-      type: this.type,
-      action: this.action,
-      inputVariable: this.inputVariableList,
-      engine: this.engine,
-    };
-  }
 }
 /** 仅做代码块使用 */
 export class ScheduleBlockStepShared extends BaseScheduleStepShared {
   readonly type = ScheduleStep.block;
   list: ScheduleStepShared[] = [];
-  toRequestFormat(): any {
-    return {
-      name: this.name,
-      list: this.list.map((item) => item.toRequestFormat()),
-    };
-  }
 }
 export enum ScheduleStep {
   global,

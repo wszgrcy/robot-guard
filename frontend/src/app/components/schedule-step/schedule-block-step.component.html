@@ -1,17 +1,19 @@
 <app-schedule-base-step [rgStep]="rgStep">
   <div class="card-header-operation">
     <button mat-button [matMenuTriggerFor]="menu">菜单</button>
+    <button mat-raised-button color="warn" *ngIf="parent" (click)="deleteSelf()">删除</button>
+
   </div>
   <div class="card-content">
     <ng-container *ngFor="let item of rgStep.list">
       <ng-container *ngIf="item | isScheduleEngineStep">
-        <app-schedule-engine-step [rgStep]="item"></app-schedule-engine-step>
+        <app-schedule-engine-step [rgStep]="item" [rgParentBlock]="instance"></app-schedule-engine-step>
       </ng-container>
       <ng-container *ngIf="item | isScheduleFlowStep">
-        <app-schedule-flow-step [rgStep]="item"></app-schedule-flow-step>
+        <app-schedule-flow-step [rgStep]="item" [rgParentBlock]="instance"></app-schedule-flow-step>
       </ng-container>
       <ng-container *ngIf="item | isScheduleGlobalStep">
-        <app-schedule-global-step [rgStep]="item"></app-schedule-global-step>
+        <app-schedule-global-step [rgStep]="item" [rgParentBlock]="instance"></app-schedule-global-step>
       </ng-container>
     </ng-container>
   </div>

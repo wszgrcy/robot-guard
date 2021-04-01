@@ -11,6 +11,7 @@ const routes: Routes = [
     children: [
       { path: 'list', component: ScheduleComponent },
       { path: 'item', component: ItemComponent },
+      { path: 'item/:id', component: ItemComponent },
     ],
   },
 ];

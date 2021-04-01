@@ -1,6 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { ScheduleStepDelete } from '@rg-interface';
 import {
   engineTypeOptions,
   ScheduleEngineStepShared,
@@ -22,35 +23,28 @@ export class ScheduleEngineStepComponent implements OnInit {
   @Input() rgStep!: ScheduleEngineStepShared<any>;
   engineTypeOptions = engineTypeOptions;
   engineNameList$!: Observable<ScheduleGlobalStepShared[]>;
+  @Input() rgParentBlock!: ScheduleStepDelete;
   constructor(private storeService: CyiaStoreService) {}
 
   ngOnInit() {
     this.engineNameList$ = this.storeService
       .select(EngineNameStore)
-      .pipe(
-        tap((set) => {
-          console.log('查看set');
-        })
-      )
       .pipe(map((item) => [...item.values()]));
-    this.engineNameList$.subscribe((list) => {
-      console.log('列表变更');
-    });
+
+    if (this.rgStep.name) {
+      this.storeService
+        .getStore(VariableStore)
+        .addVariable({ name: this.rgStep.name, relation: this.rgStep });
+    }
   }
 
   nameChange($event: string) {
-    //todo 变量名变更后,需要将变量名加入到状态管理工具
     this.storeService
       .getStore(VariableStore)
       .addVariable({ name: $event, relation: this.rgStep });
   }
-  ngOnDestroy(): void {
-    this.storeService
-      .getStore(VariableStore)
-      .removeVariable({ relation: this.rgStep });
-  }
+
   instanceChange(e: string) {
-    console.log(e);
     this.engineNameList$.subscribe(
       (list) =>
         (this.rgStep.engine = list.filter(
@@ -67,5 +61,13 @@ export class ScheduleEngineStepComponent implements OnInit {
     if (event.input) {
       event.input.value = '';
     }
+  }
+  ngOnDestroy(): void {
+    this.storeService
+      .getStore(VariableStore)
+      .removeVariable({ relation: this.rgStep });
+  }
+  deleteSelf() {
+    this.rgParentBlock.deleteChild(this.rgStep);
   }
 }

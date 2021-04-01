@@ -1,6 +1,7 @@
 <app-schedule-base-step [rgStep]="rgStep">
   <div class="card-header-operation">
     <button mat-button [matMenuTriggerFor]="menu">菜单</button>
+    <button mat-raised-button color="warn" *ngIf="rgParentBlock" (click)="deleteSelf()">删除</button>
   </div>
   <div class="card-content">
     <div>
@@ -11,6 +12,7 @@
         <mat-select
           [(ngModel)]="rgStep.action"
           (ngModelChange)="actionChange($event)"
+          name="action"
         >
           <mat-option
             [value]="item.value"
@@ -33,24 +35,24 @@
       <div style="display: flex;">
         <div style="flex: 1 1 0;">
           <label for="">循环条件</label>
-          <app-ts-codeblock [(ngModel)]="rgStep.loopStart"></app-ts-codeblock>
+          <app-ts-codeblock [(ngModel)]="rgStep.loopStart" name="loopStart"></app-ts-codeblock>
         </div>
         <div style="flex: 1 1 0;">
           <label for="">终止条件</label>
-          <app-ts-codeblock [(ngModel)]="rgStep.loopEnd"></app-ts-codeblock>
+          <app-ts-codeblock [(ngModel)]="rgStep.loopEnd" name="loopEnd"></app-ts-codeblock>
         </div>
       </div>
 
-      <app-schedule-block-step
+      <app-schedule-block-step *ngIf="rgStep.loopBlock"
         [rgStep]="rgStep.loopBlock"
       ></app-schedule-block-step>
     </div>
     <div *ngIf="rgStep.action | isScheduleFlowIfStep">
       <div style="display: flex; flex-wrap: wrap">
-        <div *ngFor="let item of rgStep.conditionList" class="condition-item">
+        <div *ngFor="let item of rgStep.conditionList;let i=index" class="condition-item">
           <div>
             <label for="">条件</label>
-            <app-ts-codeblock [(ngModel)]="item.condition"></app-ts-codeblock>
+            <app-ts-codeblock [(ngModel)]="item.condition" name="{{i}}}-condition"></app-ts-codeblock>
           </div>
 
           <app-schedule-block-step
@@ -67,6 +69,7 @@
         <label for="">表达式</label>
         <app-ts-codeblock
           [(ngModel)]="rgStep.switchExpression"
+          name="switchExpression"
         ></app-ts-codeblock>
       </div>
       <div *ngFor="let item of rgStep.switchSteps" class="condition-item">

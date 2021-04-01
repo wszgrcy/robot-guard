@@ -18,7 +18,10 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@rg-share": ["../shared"]
+      "@rg-share": ["../shared"],
+      "@rg-entity/*": ["./src/app/entity/*"],
+      "@rg-const": ["./src/app/const"],
+      "@rg-interface": ["./src/app/interface"]
     }
   },
   "angularCompilerOptions": {
