@@ -79,4 +79,11 @@ export class ScheduleFlowStepComponent implements OnInit {
       );
     }
   }
+  deleteIfItem(index:number){
+    this.rgStep.conditionList.splice(index,1)
+  }
+  deleteSwitchItem(index:number){
+    this.rgStep.switchSteps.splice(index,1)
+
+  }
 }

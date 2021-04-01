@@ -50,6 +50,9 @@
     <div *ngIf="rgStep.action | isScheduleFlowIfStep">
       <div style="display: flex; flex-wrap: wrap">
         <div *ngFor="let item of rgStep.conditionList;let i=index" class="condition-item">
+          
+          <button mat-raised-button color="warn" (click)="deleteIfItem(i)">删除</button>
+
           <div>
             <label for="">条件</label>
             <app-ts-codeblock [(ngModel)]="item.condition" name="{{i}}}-condition"></app-ts-codeblock>
@@ -72,7 +75,9 @@
           name="switchExpression"
         ></app-ts-codeblock>
       </div>
-      <div *ngFor="let item of rgStep.switchSteps" class="condition-item">
+      <div *ngFor="let item of rgStep.switchSteps;let i=index" class="condition-item">
+        <button mat-raised-button color="warn" (click)="deleteSwitchItem(i)">删除</button>
+
         <mat-form-field appearance="fill">
           <mat-label>case</mat-label>
           <input matInput [(ngModel)]="item.case" />
