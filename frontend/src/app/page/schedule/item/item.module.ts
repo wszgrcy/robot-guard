@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ScheduleComponent } from './schedule.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { ItemComponent } from './item/item.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { ScheduleItemComponent } from './item.component';
 import { FormsModule } from '@angular/forms';
-import { ScheduleStepModule } from '../components/schedule-step/schedule-block-step.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { ScheduleStepModule } from '@rg-component/schedule-step';
+
 @NgModule({
-  declarations: [ScheduleComponent, ItemComponent],
+  declarations: [ScheduleItemComponent],
   imports: [
     CommonModule,
     MatTableModule,
@@ -23,6 +23,7 @@ import { ScheduleStepModule } from '../components/schedule-step/schedule-block-s
     FormsModule,
     ScheduleStepModule
   ],
-  exports: [ScheduleComponent],
+  exports: [ScheduleItemComponent],
+  providers: [],
 })
-export class ScheduleModule {}
+export class ScheduleItemModule {}

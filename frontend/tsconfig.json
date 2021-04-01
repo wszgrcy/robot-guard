@@ -21,7 +21,8 @@
       "@rg-share": ["../shared"],
       "@rg-entity/*": ["./src/app/entity/*"],
       "@rg-const": ["./src/app/const"],
-      "@rg-interface": ["./src/app/interface"]
+      "@rg-interface": ["./src/app/interface"],
+      "@rg-component/*":["./src/app/component/*"]
     }
   },
   "angularCompilerOptions": {

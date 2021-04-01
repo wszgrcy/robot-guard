@@ -3,15 +3,14 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BaseScheduleStepShared } from '@rg-share';
 import { CyiaRepositoryService } from 'cyia-ngx-common/repository';
-import { ItemComponent } from './item/item.component';
-import { ScheduleEntity } from './schedule.entity';
+import { ScheduleEntity } from '../schedule.entity';
 
 @Component({
-  selector: 'app-schedule',
-  templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.scss'],
+  selector: 'app-schedule-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleListComponent implements OnInit {
   dataSource: any[] = [];
   displayedColumns = ['name'];
   constructor(

@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ItemComponent } from './schedule/item/item.component';
-import { ScheduleComponent } from './schedule/schedule.component';
-import { ScheduleModule } from './schedule/schedule.module';
+import { ScheduleItemComponent } from './page/schedule/item/item.component';
+import { ScheduleListComponent } from './page/schedule/list/list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/schedule/item' },
   {
     path: 'schedule',
     children: [
-      { path: 'list', component: ScheduleComponent },
-      { path: 'item', component: ItemComponent },
-      { path: 'item/:id', component: ItemComponent },
+      { path: 'list', component: ScheduleListComponent },
+      { path: 'item', component: ScheduleItemComponent },
+      { path: 'item/:id', component: ScheduleItemComponent },
     ],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), ScheduleModule],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

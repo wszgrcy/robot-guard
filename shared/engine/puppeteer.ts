@@ -7,6 +7,7 @@ export enum ActionTypeEnum {
   click,
   input,
   wait,
+  getElementProperty
 }
 
 // let actionType = Object.values(ActionTypeEnum).filter((value) => typeof value === "number");
@@ -16,6 +17,7 @@ export const ActionTypeObject = {
   [ActionTypeEnum.click]: { name: ActionTypeEnum[ActionTypeEnum.click], enum: ActionTypeEnum.click, label: "点击" },
   [ActionTypeEnum.input]: { name: ActionTypeEnum[ActionTypeEnum.input], enum: ActionTypeEnum.input, label: "输入" },
   [ActionTypeEnum.wait]: { name: ActionTypeEnum[ActionTypeEnum.wait], enum: ActionTypeEnum.wait, label: "等待" },
+  [ActionTypeEnum.getElementProperty]: { name: ActionTypeEnum[ActionTypeEnum.getElementProperty], enum: ActionTypeEnum.getElementProperty, label: "查询元素属性" },
 };
 
 export const ActionOptions = objectToOptions(ActionTypeObject, ["label", "label"], ["value", "enum"]);

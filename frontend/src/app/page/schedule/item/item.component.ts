@@ -4,18 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CyiaRepositoryService } from 'cyia-ngx-common/repository';
 import { ScheduleBlockStep } from '@rg-entity/schedule-step';
-import {
-  AddScheduleEntity,
-  ChangeScheduleEntity,
-  ScheduleEntityItem,
-} from '../schedule.entity';
+import { AddScheduleEntity, ChangeScheduleEntity, ScheduleEntityItem } from '../schedule.entity';
+
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
 })
-export class ItemComponent implements OnInit {
+export class ScheduleItemComponent implements OnInit {
   @ViewChild('table', { static: true }) table!: MatTable<any>;
   displayedColumns: any[] = ['action', 'params'];
   dataSource: any[] = [];

@@ -14,6 +14,9 @@ import {
   getReducerMap,
 } from 'cyia-ngx-common/store';
 import { EngineNameStore, VariableStore } from './store';
+import { ScheduleItemModule } from './page/schedule/item/item.module';
+import { ScheduleModule } from './page/schedule/schedule.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -30,6 +33,7 @@ import { EngineNameStore, VariableStore } from './store';
       },
     }),
     CyiaStoreModule,
+    ScheduleModule
   ],
   providers: [],
   bootstrap: [AppComponent],
