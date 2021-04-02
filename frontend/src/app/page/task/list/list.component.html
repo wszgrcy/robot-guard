@@ -1,0 +1,37 @@
+<button (click)="add()">新增</button>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <!-- <ng-container matColumnDef="index">
+    <th mat-header-cell *matHeaderCellDef>序号</th>
+    <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+  </ng-container> -->
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>名字</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="useScheduleName">
+    <th mat-header-cell *matHeaderCellDef>使用</th>
+    <td mat-cell *matCellDef="let element">{{ element.useScheduleName }}</td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>操作</th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="run(element)">执行</button>
+      <button (click)="change(element)">修改</button>
+    </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <!-- <ng-container matColumnDef="number">
+    <th mat-header-cell *matHeaderCellDef>步骤数</th>
+    <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+  </ng-container> -->
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

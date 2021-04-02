@@ -16,6 +16,8 @@ import {
 import { EngineNameStore, VariableStore } from './store';
 import { ScheduleItemModule } from './page/schedule/item/item.module';
 import { ScheduleModule } from './page/schedule/schedule.module';
+import { ScheduleStore } from './store/schedule.store';
+import { TaskModule } from './page/task/task.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,14 +28,16 @@ import { ScheduleModule } from './page/schedule/schedule.module';
     MatSidenavModule,
     MatListModule,
     CyiaRepositoryModule,
-    StoreModule.forRoot(getReducerMap([VariableStore,EngineNameStore]), {
+    StoreModule.forRoot(getReducerMap([VariableStore,EngineNameStore,ScheduleStore]), {
       runtimeChecks: {
         strictStateImmutability: false,
         strictActionImmutability: false,
       },
     }),
     CyiaStoreModule,
-    ScheduleModule
+    ScheduleModule,
+    TaskModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],

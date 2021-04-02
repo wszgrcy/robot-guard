@@ -3,7 +3,6 @@ import { objectToOptions } from "../util/object-to-options";
 export abstract class BaseScheduleStepShared {
   static index = 0;
   name!: string;
-  parent!: ScheduleStepShared;
   constructor() {
     if (!this.name) {
       this.name = `默认步骤-${BaseScheduleStepShared.index++}`;
@@ -36,10 +35,13 @@ export class ScheduleEngineStepShared<T> extends BaseScheduleStepShared {
   type = ScheduleStep.engine;
 
   engine!: EngineType;
+  /** 实例后的名字 */
   instance!: string;
-  /** todo 类型不确定 */
+  /** 方法 */
   action!: T;
+  /** 语句执行结果的变量名 */
   variableName!: string;
+  /** 方法的输入参数列表 */
   inputVariableList: any[] = [];
 }
 /**

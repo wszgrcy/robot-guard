@@ -1,0 +1,15 @@
+<!-- <form action=""> -->
+<mat-form-field appearance="fill">
+  <mat-label>名字</mat-label>
+  <input matInput [(ngModel)]="config.name" name="name" />
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>使用日程</mat-label>
+  <mat-select [(ngModel)]="config.useSchedule" name="useSchedule">
+    <mat-option [value]="item._id" *ngFor="let item of scheduleList">{{
+      item.name
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<!-- </form> -->
+<button (click)="save()">保存</button>
